@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ycngu的博客">
+    <meta name="keyword" content="noob">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        js中的函数 - ycngu的博客 | Ycngu&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 菜鸟前端为何要战斗？ </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>YCNGU</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的五种声明方式"><span class="toc-text">函数的五种声明方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#js不一致性"><span class="toc-text">js不一致性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见考点"><span class="toc-text">常见考点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#作用域"><span class="toc-text">作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量提升"><span class="toc-text">变量提升</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包"><span class="toc-text">闭包</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 菜鸟前端为何要战斗？ </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        js中的函数
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-03 21:00:10</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#javascript" title="javascript">javascript</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#函数" title="函数">函数</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="函数的五种声明方式"><a href="#函数的五种声明方式" class="headerlink" title="函数的五种声明方式"></a>函数的五种声明方式</h2><p>1.具名函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params">input1,input2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.匿名函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="function"><span class="keyword">function</span>  (<span class="params">input1, input2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">x.name <span class="comment">// 'x'</span></span><br></pre></td></tr></table></figure></p>
+<p>3.具名函数赋值<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="function"><span class="keyword">function</span>  <span class="title">y</span>(<span class="params">input1, input2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">x.name <span class="comment">// 'y'</span></span><br></pre></td></tr></table></figure></p>
+<p>4window.Function</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'x'</span>,<span class="string">'y'</span>,<span class="string">'return x+y'</span>)</span><br><span class="line">x.name <span class="comment">// "anonymous"</span></span><br></pre></td></tr></table></figure>
+<p>5箭头函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f= <span class="function">(<span class="params">x,y</span>)=&gt;</span>&#123;<span class="keyword">return</span> x+y&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="js不一致性"><a href="#js不一致性" class="headerlink" title="js不一致性"></a>js不一致性</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">y</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(y) <span class="comment">//y()&#123;&#125;'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="function"><span class="keyword">function</span> <span class="title">y</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(y) <span class="comment">//报错</span></span><br></pre></td></tr></table></figure>
+<h2 id="常见考点"><a href="#常见考点" class="headerlink" title="常见考点"></a>常见考点</h2><h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> a = <span class="number">3</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f.call()</span><br><span class="line"><span class="built_in">console</span>.log(a) <span class="comment">//1</span></span><br></pre></td></tr></table></figure>
+<p>log结果是1</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> a = <span class="number">3</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f.call()</span><br><span class="line"><span class="built_in">console</span>.log(a) <span class="comment">//1</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f.call() <span class="comment">// a是undefined</span></span><br></pre></td></tr></table></figure>
+<p>这里涉及到变量提升，变量提升后的代码是这样的<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a</span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">    a = <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f.call() <span class="comment">// a是undefined</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">wrapper</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum.call(<span class="number">4</span>).call(<span class="number">3</span>) <span class="comment">// 7</span></span><br><span class="line">o = sum(<span class="number">8</span>) <span class="comment">//返回一个函数</span></span><br><span class="line">o(<span class="number">2</span>)  <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+<p>闭包就是一个函数能引用到它作用域外的变量<br>这里 函数 o 依然可以引用到 8</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/deng-gao-wang-yuan-82">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/ycngu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://ycngu.github.io/">Ycngu&#39;s Page</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://airclouds-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

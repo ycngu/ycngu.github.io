@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ycngu的博客">
+    <meta name="keyword" content="noob">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        原型与原型链 - ycngu的博客 | Ycngu&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 菜鸟前端为何要战斗？ </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>YCNGU</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要有原型（proto）"><span class="toc-text">为什么要有原型（proto）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原型与原型链"><span class="toc-text">原型与原型链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#令人迷糊的-proto-和-prototype"><span class="toc-text">令人迷糊的 __proto__  和 prototype</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 菜鸟前端为何要战斗？ </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        原型与原型链
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-10-16 23:05:56</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#javascript" title="javascript">javascript</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#原型" title="原型">原型</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#原型链" title="原型链">原型链</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="为什么要有原型（proto）"><a href="#为什么要有原型（proto）" class="headerlink" title="为什么要有原型（proto）"></a>为什么要有原型（proto）</h2><p>我们知道，<strong>每一个number</strong>都有一个 <strong>.toString方法</strong>,</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>).toString <span class="comment">// '1'</span></span><br><span class="line">(<span class="number">2</span>).toString <span class="comment">// '2'</span></span><br><span class="line">(<span class="number">3</span>).toString <span class="comment">// '3'</span></span><br><span class="line">(<span class="number">4</span>).toString <span class="comment">// '4'</span></span><br><span class="line">(<span class="number">5</span>).toString <span class="comment">// '5'</span></span><br><span class="line">(<span class="number">6</span>).toString <span class="comment">// '6'</span></span><br></pre></td></tr></table></figure>
+<p>想一想，<strong>每一个number</strong>都有一个 <strong>.toString方法</strong>,那这个方法是怎么储存的呢？</p>
+<p>是每创建一个number就给这个number一个 <strong>.toString方法</strong>吗？<br><a id="more"></a><br>假设我们以后有100万个nuber要创建，那么我们就要给100万个number 100万个 <strong>.toString方法</strong>，这显然是很大的开销，这是不可接受的。</p>
+<p>这时候就需要 原型（proto）来拯救世界了。</p>
+<p>这些number的 <strong>.toString方法</strong>长得都一个样，那么我们应该用一个仓库把 .toString方法装起来,等到要用的时候，所有number到这个仓库去取就行了，这个仓库就是 <strong><strong>proto </strong></strong> 。</p>
+<p>创建number的时候，把这个<strong>proto </strong>赋给number（也就是说把同一个<strong>proto </strong>仓库给新创建的number），这样我们建了一个仓库，却可以给所有number用。</p>
+<p>有仓库当然要使劲用，所以这个 <strong>proto </strong> 仓库不仅装有 <strong>.toString方法</strong>，还有valueOf，toFixed等一系列乱七八糟的东西。</p>
+<p><img src="/images/原型与原型链/1.png" alt="1.jpg"></p>
+<h2 id="原型与原型链"><a href="#原型与原型链" class="headerlink" title="原型与原型链"></a>原型与原型链</h2><p>上面把 原型（proto）比喻为一个仓库，是为了说明为什么要有proto，其实还可以做这样的比喻：</p>
+<p>小明的原型是人 ，人的原型是动物</p>
+<p>小明有四肢和五脏六腑，因为小明的原型（proto）是人，人就必须要有四肢和五脏六腑（类比 number的 <strong>proto </strong> 有<strong>.toString方法</strong>），人是动物，必须要会运动。</p>
+<p>鹦鹉的原型是鸟， 鸟的原型是动物。</p>
+<p>鹦鹉有翅膀，因为鹦鹉的原型是鸟，鸟就必须要有翅膀，鸟是动物，所以鸟会运动。</p>
+<p>鹦鹉和小明的原型链分别是</p>
+<p>鹦鹉 -&gt; 鸟-&gt; 动物<br>小明 -&gt; 人-&gt; 动物</p>
+<p>而 1 这个number的原型链是</p>
+<p>1 -&gt; number -&gt; object </p>
+<p>1是number 而number 是 object</p>
+<p>在控制台测试一下。</p>
+<hr>
+<p><img src="/images/原型与原型链/2.png" alt="2.jpg"></p>
+<p>看上图，1的 <strong>proto </strong> 显示它的构造函数是number</p>
+<p>（1的 <strong>proto </strong>） 的 <strong>proto </strong>显示 （1的 <strong>proto </strong>） 的构造函数是Object</p>
+<p>那么 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>).__proto__.__proto__.__proto__ <span class="comment">//null</span></span><br></pre></td></tr></table></figure>
+<p>是啥呢，结果是null，null就是这个原型链的终点。</p>
+<p>完整的原型链应该是:</p>
+<p>1 -&gt; number -&gt; object -&gt; null</p>
+<p>至于为什么是null ，<a href="https://segmentfault.com/q/1010000005795507/a-1020000005813048" target="_blank" rel="noopener">点这里</a>了解详情</p>
+<h2 id="令人迷糊的-proto-和-prototype"><a href="#令人迷糊的-proto-和-prototype" class="headerlink" title="令人迷糊的 __proto__  和 prototype"></a>令人迷糊的 __proto__  和 prototype</h2><p>先看<a href="https://segmentfault.com/q/1010000005795507/a-1020000005813048" target="_blank" rel="noopener">这一篇文章</a>（赞美方方~）</p>
+<p>然后关于__proto__  和 prototype 只需记住下面这一条公式就完事了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对象.__proto__ === 构造函数.prototype</span><br></pre></td></tr></table></figure>
+<p>问题：</p>
+<p>Function是对象吗？</p>
+<p>是</p>
+<p>Function是函数吗？</p>
+<p>是</p>
+<p>下面套入公式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.__proto__ === <span class="built_in">Function</span>.prototype <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+<p>结果为true</p>
+<p>一切都是公式的变形。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/deng-gao-wang-yuan-82">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/ycngu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://ycngu.github.io/">Ycngu&#39;s Page</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://airclouds-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

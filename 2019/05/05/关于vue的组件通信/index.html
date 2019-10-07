@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ycngu的博客">
+    <meta name="keyword" content="noob">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        关于vue的组件通信 - ycngu的博客 | Ycngu&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 菜鸟前端为何要战斗？ </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>YCNGU</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#父子间的组件通信"><span class="toc-text">父子间的组件通信</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#从父到子"><span class="toc-text">从父到子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从子到父"><span class="toc-text">从子到父</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#兄弟间的组件通信"><span class="toc-text">兄弟间的组件通信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#祖孙间的组件通信"><span class="toc-text">祖孙间的组件通信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#另外一些方法"><span class="toc-text">另外一些方法</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 菜鸟前端为何要战斗？ </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        关于vue的组件通信
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-05-05 21:26:46</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Vue" title="Vue">Vue</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="父子间的组件通信"><a href="#父子间的组件通信" class="headerlink" title="父子间的组件通信"></a>父子间的组件通信</h2><p>今天来总结一下Vue中的组件通信,参考了官方教程和某些博客<br>父子间的通信有两种，一种是从父到子，另一种是从子到父</p>
+<h3 id="从父到子"><a href="#从父到子" class="headerlink" title="从父到子"></a>从父到子</h3><p>一般使用props<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'blog-post'</span>, &#123;</span><br><span class="line">  props: [<span class="string">'postTitle'</span>],</span><br><span class="line">  template: <span class="string">'&lt;h3&gt;&#123;&#123; postTitle &#125;&#125;&lt;/h3&gt;'</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&lt;blog-post post-title=<span class="string">"hello!"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<h3 id="从子到父"><a href="#从子到父" class="headerlink" title="从子到父"></a>从子到父</h3><p>使用emit<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父组件</span></span><br><span class="line">&lt;single-address @edit-address=<span class="string">"editAddress"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">single-address</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 子组件</span></span><br><span class="line">methods: &#123;</span><br><span class="line"> editAddress () &#123;</span><br><span class="line">  <span class="keyword">this</span>.$emit(<span class="string">'edit-address'</span>, <span class="literal">false</span>)</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="兄弟间的组件通信"><a href="#兄弟间的组件通信" class="headerlink" title="兄弟间的组件通信"></a>兄弟间的组件通信</h2><p>使用event bus<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bus = <span class="keyword">new</span> Vue()</span><br><span class="line"><span class="comment">// 组件A</span></span><br><span class="line">bus.$emit(<span class="string">'id-selected'</span>, <span class="number">1</span>)</span><br><span class="line"><span class="comment">// 组件B</span></span><br><span class="line">bus.$on(<span class="string">'id-selected'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">id</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(id)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="祖孙间的组件通信"><a href="#祖孙间的组件通信" class="headerlink" title="祖孙间的组件通信"></a>祖孙间的组件通信</h2><p>依赖注入,使用 provide 和 inject<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 组件结构 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">google-map</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">google-map-region</span> <span class="attr">v-bind:shape</span>=<span class="string">"cityBoundaries"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">google-map-markers</span> <span class="attr">v-bind:places</span>=<span class="string">"iceCreamShops"</span>&gt;</span><span class="tag">&lt;/<span class="name">google-map-markers</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">google-map-region</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">google-map</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 组件google-map内部</span></span><br><span class="line"><span class="comment">// provide 选项允许我们指定我们想要提供给后代组件的数据/方法。在这个例子中，就是 &lt;google-map&gt; 内部的 getMap 方法</span></span><br><span class="line">provide: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    getMap: <span class="keyword">this</span>.getMap</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//然后在任何后代组件里，我们都可以使用 inject 选项来接收指定的我们想要添加在这个实例上的属性</span></span><br><span class="line">inject: [<span class="string">'getMap'</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="另外一些方法"><a href="#另外一些方法" class="headerlink" title="另外一些方法"></a>另外一些方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根组件</span></span><br><span class="line"><span class="keyword">this</span>.$root</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$parent</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注意，是直接子组件</span></span><br><span class="line"><span class="keyword">this</span>.$children</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$refs</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> req = <span class="keyword">new</span> XMLhttpRequest()</span><br><span class="line">req.open(<span class="string">'GET'</span>,<span class="string">''</span>,<span class="literal">true</span>)</span><br><span class="line">req.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(req.readyState==<span class="number">4</span>&amp;&amp;req.status==<span class="number">200</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> str = req.responseText</span><br><span class="line">    <span class="built_in">console</span>.log(str)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">req.send()</span><br></pre></td></tr></table></figure>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/deng-gao-wang-yuan-82">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/ycngu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://ycngu.github.io/">Ycngu&#39;s Page</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://airclouds-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ycngu的博客">
+    <meta name="keyword" content="noob">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        javascript数据类型 - ycngu的博客 | Ycngu&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 菜鸟前端为何要战斗？ </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>YCNGU</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#js数据类型"><span class="toc-text">js数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#number"><span class="toc-text">number</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#string"><span class="toc-text">string</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#boolean"><span class="toc-text">boolean</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null-和-undifined"><span class="toc-text">null 和 undifined</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#object"><span class="toc-text">object</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#symbol"><span class="toc-text">symbol</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 菜鸟前端为何要战斗？ </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        javascript数据类型
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-10-13 14:02:31</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#javascript" title="javascript">javascript</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="js数据类型"><a href="#js数据类型" class="headerlink" title="js数据类型"></a>js数据类型</h2><p>javascript有七种数据类型，分别是：</p>
+<ul>
+<li>number (小数和整数，如1，1.2324)</li>
+<li>string （字符串，如 ‘hello’）</li>
+<li>boolean （true和false） </li>
+<li>symbol (es6新数据类型)</li>
+<li>object (注意array和function都是object)</li>
+<li>null （空值）</li>
+<li>undefined （未定义）<a id="more"></a>
+<h2 id="number"><a href="#number" class="headerlink" title="number"></a>number</h2>JavaScript 内部，所有数字都是以64位浮点数形式储存,包括整数。<br>所以会有下面的情况<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="keyword">var</span> b =<span class="number">1.0</span></span><br><span class="line"></span><br><span class="line">a == b <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.1</span> - <span class="number">1</span> <span class="comment">// 0.10000000000000009</span></span><br><span class="line"><span class="comment">//1.1 以64位浮点数形式储存，所以会出现这样的结果</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>so注意,涉及到小数的运算都要特别小心</strong></p>
+<p>NaN是 JavaScript 的特殊值，表示“非数字”（Not a Number），主要出现在将字符串解析成数字出错的场合.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">NaN</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span> * <span class="string">'kk'</span> <span class="comment">//NaN</span></span><br><span class="line"><span class="string">``</span><span class="string">`  </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">以下是各进制在js中的表示方法</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="number">24</span><span class="comment">//十进制</span></span><br><span class="line"><span class="number">1.3e4</span><span class="comment">//十进制，科学计数法</span></span><br><span class="line"><span class="number">0b11</span><span class="comment">//二进制，0b开头</span></span><br><span class="line"><span class="number">011</span><span class="comment">//八进制，以0开头</span></span><br><span class="line"><span class="number">0xff</span><span class="comment">//十六进制，0x开头</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p>字符串有多种定义的方式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'hello'</span> <span class="comment">//用单引号包起来</span></span><br><span class="line"><span class="string">"world"</span> <span class="comment">//用双引号包起来</span></span><br><span class="line"></span><br><span class="line"><span class="string">`hello</span></span><br><span class="line"><span class="string">world`</span> <span class="comment">//多行字符串写法一，用反引号包起来</span></span><br></pre></td></tr></table></figure></p>
+<p>问：反引号括起来的helloworld的length是多少？<br>答：11，因为 <strong>包含了回车！</strong> 千万要注意。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//多行字符串写法二</span></span><br><span class="line"><span class="keyword">var</span> w1 = <span class="string">'12345 \    </span></span><br><span class="line"><span class="string">          67890'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> w2 = <span class="string">'12345 \</span></span><br><span class="line"><span class="string">          67890'</span></span><br></pre></td></tr></table></figure>
+<p>问：上面的代码中，w1和w2有什么区别？<br>答：按 ctrl+a ，你会看到 w1的12345后面紧跟着空格，w2则没有，w1会报错！！！坑死人不偿命</p>
+<p>如果一定要换行，正确的写法是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> w1 = <span class="string">'12345'</span> +</span><br><span class="line">         <span class="string">'67890'</span></span><br></pre></td></tr></table></figure>
+<h2 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h2><p>boolean只有true和false两个值<br>通常和if else 和 &amp;&amp; ||等运算符一起使用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="comment">//执行这里的代码</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="literal">false</span>)&#123;</span><br><span class="line">    <span class="comment">//不执行这里的代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> &amp;&amp; <span class="literal">false</span> <span class="comment">//false</span></span><br><span class="line"></span><br><span class="line"><span class="literal">true</span> || <span class="literal">false</span> <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<h2 id="null-和-undifined"><a href="#null-和-undifined" class="headerlink" title="null 和 undifined"></a>null 和 undifined</h2><p>这两个都表示什么都没有<br>js之父承认这是他设计错了（手动滑稽）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a</span><br><span class="line"></span><br><span class="line"><span class="comment">// a的值为undefined</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>如果一个变量没有赋值，会被js赋值为undefined<br>如果有一个object对象，现在不想给值，推荐初始化成null<br>如果有一个非object对象，现在不想给值，推荐初始化成undefined</strong></p>
+</blockquote>
+<h2 id="object"><a href="#object" class="headerlink" title="object"></a>object</h2><p>以上都属于基本类型，而object是复杂类型，由简单类型组成</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'joe'</span></span><br><span class="line"><span class="keyword">var</span> age = <span class="number">18</span></span><br><span class="line"><span class="keyword">var</span> gender = <span class="string">'male'</span></span><br><span class="line"><span class="comment">//简单类型</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name: <span class="string">'joe'</span>,</span><br><span class="line">    age: <span class="number">18</span>,</span><br><span class="line">    gender: <span class="string">'male'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//复杂类型,由简单类型组成</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意这里有个坑</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'xxxx'</span></span><br><span class="line">person[name]</span><br><span class="line">person[<span class="string">'name'</span>]</span><br></pre></td></tr></table></figure></p>
+<p>问：person[name]和person[‘name’]的值分别是多少？<br>答：前一个是undefined，后一个是 ‘joe’</p>
+<p>person[name] //实际上是person[‘xxxx’]</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typeof</span>(f) <span class="comment">//'function'</span></span><br></pre></td></tr></table></figure>
+<p><strong>如果用typeof函数去测f,那么会显示f的类型是function,实际上f的类型是objcet,谨记</strong></p>
+<h2 id="symbol"><a href="#symbol" class="headerlink" title="symbol"></a>symbol</h2><blockquote>
+<p>ES5 的对象属性名都是字符串，这容易造成属性名的冲突。比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixin 模式），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是 ES6 引入Symbol的原因。</p>
+</blockquote>
+<p>以上是阮一峰老师的解释<br>更多知识请猛戳以下两个链接<br><a href="http://es6.ruanyifeng.com/#docs/symbol" target="_blank" rel="noopener">http://es6.ruanyifeng.com/#docs/symbol</a><br><a href="https://zhuanlan.zhihu.com/p/22652486" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22652486</a></p>
+<p>symbol类型通过symbol函数创建<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = symbol()</span><br></pre></td></tr></table></figure></p>
+<p>Symbol函数可以接受一个字符串作为参数，表示对 Symbol 实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="built_in">Symbol</span>(<span class="string">'foo'</span>);</span><br><span class="line"><span class="keyword">let</span> s2 = <span class="built_in">Symbol</span>(<span class="string">'bar'</span>);</span><br><span class="line"></span><br><span class="line">s1 <span class="comment">// Symbol(foo)</span></span><br><span class="line">s2 <span class="comment">// Symbol(bar)</span></span><br><span class="line"></span><br><span class="line">s1.toString() <span class="comment">// "Symbol(foo)"</span></span><br><span class="line">s2.toString() <span class="comment">// "Symbol(bar)"</span></span><br></pre></td></tr></table></figure></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/deng-gao-wang-yuan-82">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/ycngu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://ycngu.github.io/">Ycngu&#39;s Page</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://airclouds-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

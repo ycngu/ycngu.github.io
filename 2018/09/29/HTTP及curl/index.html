@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ycngu的博客">
+    <meta name="keyword" content="noob">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        HTTP及curl - ycngu的博客 | Ycngu&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 菜鸟前端为何要战斗？ </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>YCNGU</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP请求"><span class="toc-text">HTTP请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP响应"><span class="toc-text">HTTP响应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如果想详细了解HTTP状态码和各字段的意义"><span class="toc-text">如果想详细了解HTTP状态码和各字段的意义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用Chrome开发者工具查看-HTTP-响应-请求-内容"><span class="toc-text">用Chrome开发者工具查看 HTTP 响应/请求 内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用curl"><span class="toc-text">使用curl</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 菜鸟前端为何要战斗？ </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        HTTP及curl
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-09-29 23:21:42</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#javascript" title="javascript">javascript</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><img src="/images/HTTP及curl/1.png" alt="http.png"></p>
+<p>客户端   通过  请求  向服务器发送数据</p>
+<p>服务器   通过  响应  向客户端返回数据<br><a id="more"></a></p>
+<h2 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h2><p>HTTP请求包括四个部分</p>
+<p>以下行 有1的是属于1的部分，有2的是属于2的部分以此类推</p>
+<p>1 动词 路径 协议/版本  (实际上是这样的 GET / HTTP/1.1)<br>2 Key1: value1<br>2 Key2: value2<br>2 Key3: value3<br>2 Content-Type: application/x-www-form-urlencoded<br>2 Host: <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br>2 User-Agent: curl/7.54.0<br>3<br>4 &lt;!DOCTYPE html&gt;<br>4<!--STATUS OK--><html> <head><meta name="generator" content="Hexo 3.8.0"> 后面省略</head></html></p>
+<p>1) 请求行：是一个ASCII文本行，由三个标记组成–请求的HTTP方法、URL、HTTP版本，之间用空格分开{GET /lovobook/index.html HTTP/1.0}；<br>2) 请求头：HTTP协议使用HTTP头来传递请求的元信息。HTTP头是一个用冒号分隔的名称/值对，冒号前面是HTTP头发名称，后面是HTTP的值；<br>3) 空行： 发送回车符和退行，通知服务器一下不再有请求头；<br>4) 消息体：  HTTP请求中带有查询字符串时，如果是GET方法，查询字符或表单数据附加值请求行中，则消息体中就没有内容；如果是POST方法，查询字符串或表单数据及添加在消息体中</p>
+<p><img src="//video.jirengu.com/xdml/image/2a58d0d9-bca5-4d5d-9fbb-228e52484371/2018-9-29-20-15-53.png" alt="image.png"></p>
+<h2 id="HTTP响应"><a href="#HTTP响应" class="headerlink" title="HTTP响应"></a>HTTP响应</h2><p>HTTP响应包括四个部分</p>
+<p>1 协议/版本 状态码 原因短语 （实际上是这样的 HTTP/1.1 200 OK）<br>2 Accept-Ranges: bytes<br>2 Cache-Control: private, no-cache, no-store, proxy-revalidate, no-transform<br>2 Connection: Keep-Alive<br>2 Content-Length: 2443<br>2 Content-Type: text/html<br>2 Date: Tue, 10 Oct 2017 09:14:05 GMT<br>2 Etag: “5886041d-98b”<br>2 Last-Modified: Mon, 23 Jan 2017 13:24:45 GMT<br>2 Pragma: no-cache<br>2 Server: bfe/1.0.8.18<br>2 Set-Cookie: BDORZ=27315; max-age=86400; domain=.baidu.com; path=/<br>3<br>4&lt;!DOCTYPE html&gt;<br>4<!--STATUS OK--><html> <head><meta name="generator" content="Hexo 3.8.0"> 后面省略</head></html></p>
+<p>1) 状态行：以一个状态行开头。状态行有HTTP协议版本、响应状态码和响应描述组成，之间用空格分隔；<br>2) 响应头：与请求头一样；<br>3) 空白行：最后一个响应头之后是一个空行，发送回车符和退行，表明以下不再有响应头；<br>4) 消息体：要发送回BS的HTTP文档或其它要显示的内容等。Web服务器把要发送给客户端的文档信息放在消息体中。</p>
+<p><img src="//video.jirengu.com/xdml/image/2a58d0d9-bca5-4d5d-9fbb-228e52484371/2018-9-29-20-20-51.png" alt="image.png"></p>
+<h2 id="如果想详细了解HTTP状态码和各字段的意义"><a href="#如果想详细了解HTTP状态码和各字段的意义" class="headerlink" title="如果想详细了解HTTP状态码和各字段的意义"></a>如果想详细了解HTTP状态码和各字段的意义</h2><p>请去看 《图解HTTP》！！！</p>
+<h2 id="用Chrome开发者工具查看-HTTP-响应-请求-内容"><a href="#用Chrome开发者工具查看-HTTP-响应-请求-内容" class="headerlink" title="用Chrome开发者工具查看 HTTP 响应/请求 内容"></a>用Chrome开发者工具查看 HTTP 响应/请求 内容</h2><p>按键盘上的F12，会弹出开发者工具，输入网址，如 <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> 回车<br>点击network，点击<a href="http://www.baidu.com，找到Request" target="_blank" rel="noopener">www.baidu.com，找到Request</a> Headers，会看到如下场景</p>
+<p><img src="//video.jirengu.com/xdml/image/2a58d0d9-bca5-4d5d-9fbb-228e52484371/2018-9-29-21-14-30.png" alt="baidu1.png"></p>
+<p>再点击view source，你就会看到请求内容了</p>
+<p><img src="//video.jirengu.com/xdml/image/2a58d0d9-bca5-4d5d-9fbb-228e52484371/2018-9-29-20-55-43.png" alt="baidu2.png"></p>
+<p>查看响应内容同理，找到Request Headers ，点击view source</p>
+<p><img src="//video.jirengu.com/xdml/image/2a58d0d9-bca5-4d5d-9fbb-228e52484371/2018-9-29-21-20-28.png" alt="baidu3.png"></p>
+<h2 id="使用curl"><a href="#使用curl" class="headerlink" title="使用curl"></a>使用curl</h2><p>curl是一种从服务器传输数据或向服务器传输数据的命令行工具<br>用它可以像浏览器那样向服务器发起请求<br>下面是curl命令的常用选项</p>
+<p>-A/–user-agent <string> 设置用户代理发送给服务器，即告诉服务器浏览器为什么<br>    -basic 使用HTTP基本验证<br>    –tcp-nodelay 使用TCP_NODELAY选项<br>    -e/–referer <url> 来源网址，跳转过来的网址<br>    –cacert <file> 指定CA证书 (SSL)<br>    –compressed 要求返回是压缩的形势，如果文件本身为一个压缩文件，则可以下载至本地<br>    -H/–header <line></line>自定义头信息传递给服务器<br>    -I/–head 只显示响应报文首部信息<br>    –limit-rate <rate> 设置传输速度<br>    -u/–user &lt;user[:password]&gt;设置服务器的用户和密码<br>    -0/–http1.0 使用HTTP 1.0<br>    -s –silent 静默模式,不显示错误和进度<br>    -x 指定请求方式，如GET POST PUT等等</rate></file></url></string></p>
+<pre><code>例子
+curl -s   -- &quot;https://www.baidu.com&quot;
+</code></pre><p>输入上面的命令后，curl会向百度的服务器发起GET请求（默认是GET）<br>返回的报文主体如下<br><img src="//video.jirengu.com/xdml/image/2a58d0d9-bca5-4d5d-9fbb-228e52484371/2018-9-29-21-47-47.png" alt="curl1.png"></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/deng-gao-wang-yuan-82">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/ycngu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://ycngu.github.io/">Ycngu&#39;s Page</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://airclouds-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

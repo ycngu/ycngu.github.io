@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ycngu的博客">
+    <meta name="keyword" content="noob">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        vue的数组更新源码解析 - ycngu的博客 | Ycngu&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 菜鸟前端为何要战斗？ </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>YCNGU</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#问题-在vue里如何进行数组更新"><span class="toc-text">问题:在vue里如何进行数组更新</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#源码-set部分"><span class="toc-text">源码:set部分</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#源码：变异方法部分"><span class="toc-text">源码：变异方法部分</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 菜鸟前端为何要战斗？ </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        vue的数组更新源码解析
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-07-13 12:24:03</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#vue" title="vue">vue</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="问题-在vue里如何进行数组更新"><a href="#问题-在vue里如何进行数组更新" class="headerlink" title="问题:在vue里如何进行数组更新"></a>问题:在vue里如何进行数组更新</h1><p>Vue的<a href="https://cn.vuejs.org/v2/guide/list.html#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9" target="_blank" rel="noopener">文档</a>里已经说明了</p>
+<p>由于 JavaScript 的限制，Vue 不能检测以下数组的变动：</p>
+<ul>
+<li>当你利用索引直接设置一个数组项时，例如：vm.items[indexOfItem] = newValue</li>
+<li>当你修改数组的长度时，例如：vm.items.length = newLength</li>
+</ul>
+<p>vue里要让数组更新，使用的是Vue.set方法。</p>
+<p>但是网上的很多文章里没有告诉我们Vue.set方法究竟干了什么。</p>
+<p>下面我们看源码</p>
+<h1 id="源码-set部分"><a href="#源码-set部分" class="headerlink" title="源码:set部分"></a>源码:set部分</h1><p>Vue2.6的set方法源码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Set a property on an object. Adds the new property and</span></span><br><span class="line"><span class="comment">   * triggers change notification if the property doesn't</span></span><br><span class="line"><span class="comment">   * already exist.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">set</span> (<span class="params">target, key, val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (isUndef(target) || isPrimitive(target)</span><br><span class="line">    ) &#123;</span><br><span class="line">      warn((<span class="string">"Cannot set reactive property on undefined, null, or primitive value: "</span> + ((target))));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(target) &amp;&amp; isValidArrayIndex(key)) &#123;</span><br><span class="line">      target.length = <span class="built_in">Math</span>.max(target.length, key);</span><br><span class="line">      target.splice(key, <span class="number">1</span>, val);</span><br><span class="line">      <span class="keyword">return</span> val</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (key <span class="keyword">in</span> target &amp;&amp; !(key <span class="keyword">in</span> <span class="built_in">Object</span>.prototype)) &#123;</span><br><span class="line">      target[key] = val;</span><br><span class="line">      <span class="keyword">return</span> val</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> ob = (target).__ob__;</span><br><span class="line">    <span class="keyword">if</span> (target._isVue || (ob &amp;&amp; ob.vmCount)) &#123;</span><br><span class="line">      warn(</span><br><span class="line">        <span class="string">'Avoid adding reactive properties to a Vue instance or its root $data '</span> +</span><br><span class="line">        <span class="string">'at runtime - declare it upfront in the data option.'</span></span><br><span class="line">      );</span><br><span class="line">      <span class="keyword">return</span> val</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!ob) &#123;</span><br><span class="line">      target[key] = val;</span><br><span class="line">      <span class="keyword">return</span> val</span><br><span class="line">    &#125;</span><br><span class="line">    defineReactive$$<span class="number">1</span>(ob.value, key, val);</span><br><span class="line">    ob.dep.notify();</span><br><span class="line">    <span class="keyword">return</span> val</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里只关注关于数组的部分：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(target) &amp;&amp; isValidArrayIndex(key)) &#123;</span><br><span class="line">      target.length = <span class="built_in">Math</span>.max(target.length, key);  <span class="comment">//取length和index中大的那一个，这里key是indexOfItem</span></span><br><span class="line">      target.splice(key, <span class="number">1</span>, val);</span><br><span class="line">      <span class="keyword">return</span> val</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用时就是Vue.set(vm.items, indexOfItem, newValue)</span></span><br></pre></td></tr></table></figure></p>
+<p>当传入的target是数组且indexOfItem正常时，调用vue包装过的splice方法然后return val。</p>
+<p>上面说到vue不能检测数组的变动，set方法其实就是用vue包装过的splice变异方法来进行数组更新。</p>
+<p>这里请看vue<a href="https://cn.vuejs.org/v2/guide/list.html#%E5%8F%98%E5%BC%82%E6%96%B9%E6%B3%95-mutation-method" target="_blank" rel="noopener">变异方法</a>的文档</p>
+<p>那么splice变异方法又是怎么做到的呢</p>
+<h1 id="源码：变异方法部分"><a href="#源码：变异方法部分" class="headerlink" title="源码：变异方法部分"></a>源码：变异方法部分</h1><p>包装数组方法的源码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> methodsToPatch = [</span><br><span class="line">    <span class="string">'push'</span>,</span><br><span class="line">    <span class="string">'pop'</span>,</span><br><span class="line">    <span class="string">'shift'</span>,</span><br><span class="line">    <span class="string">'unshift'</span>,</span><br><span class="line">    <span class="string">'splice'</span>,</span><br><span class="line">    <span class="string">'sort'</span>,</span><br><span class="line">    <span class="string">'reverse'</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">methodsToPatch.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">method</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// cache original method</span></span><br><span class="line">    <span class="keyword">var</span> original = arrayProto[method];</span><br><span class="line">    <span class="comment">//def函数是vue稍微封装了一下Object.defineProperty</span></span><br><span class="line">    def(arrayMethods, method, <span class="function"><span class="keyword">function</span> <span class="title">mutator</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> args = [], len = <span class="built_in">arguments</span>.length;</span><br><span class="line">      <span class="keyword">while</span> ( len-- ) args[ len ] = <span class="built_in">arguments</span>[ len ];</span><br><span class="line"></span><br><span class="line">      <span class="keyword">var</span> result = original.apply(<span class="keyword">this</span>, args);</span><br><span class="line">      <span class="keyword">var</span> ob = <span class="keyword">this</span>.__ob__; <span class="comment">//ob是vue自己封装的observer对象，要想了解请去网上看vue双向绑定源码的解析</span></span><br><span class="line">      <span class="keyword">var</span> inserted;</span><br><span class="line">      <span class="keyword">switch</span> (method) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'push'</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'unshift'</span>:</span><br><span class="line">          inserted = args;</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">case</span> <span class="string">'splice'</span>:</span><br><span class="line">          inserted = args.slice(<span class="number">2</span>);</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (inserted) &#123; ob.observeArray(inserted); &#125;</span><br><span class="line">      <span class="comment">// notify change</span></span><br><span class="line">      ob.dep.notify();</span><br><span class="line">      <span class="keyword">return</span> result</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Observer.prototype.observeArray = <span class="function"><span class="keyword">function</span> <span class="title">observeArray</span> (<span class="params">items</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, l = items.length; i &lt; l; i++) &#123;</span><br><span class="line">    observe(items[i]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>啊，我看不懂了，还需加强学习，接下来请看<a href="https://ustbhuangyi.github.io/vue-analysis/reactive/questions.html#%E6%95%B0%E7%BB%84" target="_blank" rel="noopener">这个大神的文章</a></p>
+<p>未完待续…</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/deng-gao-wang-yuan-82">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/ycngu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://ycngu.github.io/">Ycngu&#39;s Page</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://airclouds-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

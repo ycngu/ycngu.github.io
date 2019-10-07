@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ycngu的博客">
+    <meta name="keyword" content="noob">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        DOM APi - ycngu的博客 | Ycngu&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 菜鸟前端为何要战斗？ </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>YCNGU</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM"><span class="toc-text">DOM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Node"><span class="toc-text">Node</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nodelist"><span class="toc-text">Nodelist</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTMLCollection"><span class="toc-text">HTMLCollection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ChildNode-接口"><span class="toc-text">ChildNode 接口</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 菜鸟前端为何要战斗？ </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        DOM APi
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-03 21:51:20</span></span>
+        
+        
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>注：以下文字有很多来自阮一峰老师的js教程</p>
+<h2 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h2><p>DOM 是 JavaScript 操作网页的接口，全称为“文档对象模型”（Document Object Model）。它的作用是将网页转为一个 JavaScript 对象，从而可以用脚本进行各种操作（比如增删内容）。</p>
+<p>DOM 的最小组成单位叫做<strong>节点（node）</strong>。文档的树形结构（DOM 树），就是由各种不同类型的节点组成。每个节点可以看作是文档树的一片叶子。</p>
+<p>节点的类型有七种。</p>
+<blockquote>
+<p>Document：整个文档树的顶层节点<br>DocumentType：doctype标签（比如&lt;!DOCTYPE html&gt;）<br>Element：网页的各种HTML标签（比如&amp;ltbody&gt;、&amp;lta&gt;等）<br>Attribute：网页元素的属性（比如class=”right”）<br>Text：标签之间或标签包含的文本<br>Comment：注释<br>DocumentFragment：文档的片段</p>
+</blockquote>
+<h2 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h2><p>浏览器提供一个原生的节点对象Node，上面这七种节点都继承了Node，因此具有一些共同的属性和方法。</p>
+<p>Node接口属的性具体如下</p>
+<blockquote>
+<p>Node.nodeType<br>Node.nodeName<br>Node.nodeValue<br>Node.textContent<br>Node.baseURI<br>Node.ownerDocument<br>Node.nextSibling<br>Node.previousSibling<br>Node.parentNode<br>Node.parentElement<br>Node.firstChild，Node.lastChild<br>Node.childNodes<br>Node.isConnected</p>
+</blockquote>
+<p>Node接口的方法如下</p>
+<blockquote>
+<p>Node.appendChild()<br>Node.hasChildNodes()<br>Node.cloneNode()<br>Node.insertBefore()<br>Node.removeChild()<br>Node.replaceChild()<br>Node.contains()<br>Node.compareDocumentPosition()<br>Node.isEqualNode()，Node.isSameNode()<br>Node.normalize()<br>Node.getRootNode()</p>
+</blockquote>
+<h2 id="Nodelist"><a href="#Nodelist" class="headerlink" title="Nodelist"></a>Nodelist</h2><p>NodeList实例是一个类似数组的对象，它的成员是节点对象。通过以下方法可以得到NodeList实例。</p>
+<blockquote>
+<p>Node.childNodes<br>document.querySelectorAll()、document.getElementsByTagName()等节点搜索方法</p>
+</blockquote>
+<p>NodeList是伪数组，可以使用length属性和forEach方法。但是，它不是数组，它的原型链上没有Array.prototype，不能使用pop或push之类数组特有的方法。</p>
+<h2 id="HTMLCollection"><a href="#HTMLCollection" class="headerlink" title="HTMLCollection"></a>HTMLCollection</h2><p>HTMLCollection是一个节点对象的集合，只能包含元素节点（element），不能包含其他类型的节点。它的返回值是一个类似数组的对象，但是与NodeList接口不同，HTMLCollection没有forEach方法，只能使用for循环遍历。</p>
+<p>返回HTMLCollection实例的，主要是一些Document对象的集合属性，比如document.links、docuement.forms、document.images等。</p>
+<p><strong>HTMLCollection实例都是动态集合，节点的变化会实时反映在集合中。</strong></p>
+<h2 id="ChildNode-接口"><a href="#ChildNode-接口" class="headerlink" title="ChildNode 接口"></a>ChildNode 接口</h2><p>如果一个节点有父节点，那么该节点就继承了ChildNode接口。</p>
+<p>Node接口的方法如下</p>
+<blockquote>
+<p>ChildNode.remove()<br>ChildNode.before()<br>ChildNode.after()<br>ChildNode.replaceWith()</p>
+</blockquote>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/deng-gao-wang-yuan-82">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/ycngu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://ycngu.github.io/">Ycngu&#39;s Page</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://airclouds-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

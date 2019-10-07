@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ycngu的博客">
+    <meta name="keyword" content="noob">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        JS里的数据类型转换 - ycngu的博客 | Ycngu&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 菜鸟前端为何要战斗？ </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>YCNGU</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#js数据类型"><span class="toc-text">js数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#string"><span class="toc-text">string</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#boolean"><span class="toc-text">boolean</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#number"><span class="toc-text">number</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 菜鸟前端为何要战斗？ </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        JS里的数据类型转换
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-10-14 19:40:37</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#javascript" title="javascript">javascript</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#数据类型转换" title="数据类型转换">数据类型转换</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="js数据类型"><a href="#js数据类型" class="headerlink" title="js数据类型"></a>js数据类型</h2><p>复习<br>上回说过，javascript有七种数据类型，分别是：</p>
+<ul>
+<li>number (小数和整数，如1，1.2324)</li>
+<li>string （字符串，如 ‘hello’）</li>
+<li>boolean （true和false） </li>
+<li>symbol (es6新数据类型)</li>
+<li>object (注意array和function都是object)</li>
+<li>null （空值）</li>
+<li>undefined （未定义）<a id="more"></a>
+那它们之间怎么转换呢？<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2>可以使用obj.toString(),也可以加上一个空字符串或使用String函数，但obj.toString()有局限性。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//number</span></span><br><span class="line"><span class="number">1.</span>toString() <span class="comment">//'1'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//boolean</span></span><br><span class="line">b = <span class="literal">true</span></span><br><span class="line">b.toString() <span class="comment">//'true'</span></span><br><span class="line">b + <span class="string">''</span> <span class="comment">//'true'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//symbol 这个不用记</span></span><br><span class="line">s = <span class="built_in">Symbol</span>(<span class="string">'Symbol'</span>)</span><br><span class="line">s.toString() <span class="comment">// "Symbol(symbol)"</span></span><br><span class="line"></span><br><span class="line">s + <span class="string">''</span> <span class="comment">//Cannot convert a Symbol value to a string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//null</span></span><br><span class="line"><span class="literal">null</span>.toString() <span class="comment">// TypeError: Cannot read property 'to' of null</span></span><br><span class="line"></span><br><span class="line"><span class="literal">null</span> + <span class="string">''</span> <span class="comment">// "null"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"><span class="literal">undefined</span>.toString() <span class="comment">//Cannot read property 'toString' of undefined</span></span><br><span class="line"></span><br><span class="line"><span class="literal">undefined</span> + <span class="string">''</span> <span class="comment">//"undefined"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//object</span></span><br><span class="line">object = &#123;<span class="attr">name</span>:<span class="string">'ycngu'</span>&#125; <span class="comment">//"[object Object]"</span></span><br><span class="line"></span><br><span class="line">object + <span class="string">''</span> <span class="comment">//"[object Object]"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h2><p>Boolean函数用来返回布尔值<br>js中有五个值要记住，这五个值输入Boolean函数会返回false,称为<strong>falsy</strong><br>（还有其他值，但记住这些就够了 ）<br>分别是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Boolean</span>(<span class="literal">null</span>)</span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">undefined</span>)</span><br><span class="line"><span class="built_in">Boolean</span>(<span class="string">''</span>) <span class="comment">// 空字符串</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="number">0</span>) <span class="comment">// number</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">NaN</span>) <span class="comment">// number</span></span><br><span class="line"><span class="comment">//以上全部返回false</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>要注意的是，所有的Object都是true,包括function和array</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">arr = []</span><br><span class="line">obj = &#123;&#125;</span><br><span class="line"><span class="built_in">Boolean</span>(f) <span class="comment">//函数</span></span><br><span class="line"><span class="built_in">Boolean</span>(arr) <span class="comment">//数组</span></span><br><span class="line"><span class="built_in">Boolean</span>(obj) <span class="comment">//对象</span></span><br><span class="line"><span class="comment">//以上全部返回true</span></span><br></pre></td></tr></table></figure></p>
+<p>有一种偷懒方法可以方便的得知true和false<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">!! <span class="literal">true</span> <span class="comment">// true</span></span><br><span class="line">!! &#123;&#125; <span class="comment">// true</span></span><br><span class="line">!! <span class="number">0</span> <span class="comment">//false</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="number"><a href="#number" class="headerlink" title="number"></a>number</h2><p>四种方法</p>
+<ul>
+<li>Number()</li>
+<li>parseInt()</li>
+<li>parseFloat()</li>
+<li>减去0</li>
+<li>取正 +’1.23’ // 1.23<br>一般都是把string转为number<br>下面说一下值得提的点<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> + <span class="literal">true</span> <span class="comment">// 等于2 ！！！</span></span><br><span class="line"><span class="literal">true</span> * <span class="number">3</span> <span class="comment">// 等于3 </span></span><br><span class="line"><span class="comment">//也就是说 true和数字进行计算的时候等于1</span></span><br><span class="line"></span><br><span class="line"><span class="literal">false</span> + <span class="number">3</span> <span class="comment">//等于 3</span></span><br><span class="line"><span class="literal">false</span> * <span class="number">3</span> <span class="comment">//等于0</span></span><br><span class="line"><span class="comment">//也就是说 false和数字进行计算的时候等于0</span></span><br><span class="line"></span><br><span class="line"><span class="literal">undefined</span> + <span class="number">0</span> <span class="comment">// NaN</span></span><br><span class="line"><span class="literal">null</span> + <span class="number">1</span> <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'123s'</span>) <span class="comment">// 123</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'123lsdasd1213'</span>) <span class="comment">// 123</span></span><br><span class="line"><span class="comment">//parseInt函数有两个参数，一个是解析的值，另一个是确定几进制的值，默认是10进制，parseInt会尽力解析值，直到不能解析，所以这里得到的是 123</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/deng-gao-wang-yuan-82">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/ycngu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://ycngu.github.io/">Ycngu&#39;s Page</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://airclouds-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>
